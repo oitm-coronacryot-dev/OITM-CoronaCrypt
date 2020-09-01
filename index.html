@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8"> 
+        <title>CoronaCrypt Tools</title>
+    </head>
+	
+    <body>
+
+        <h1>CoronaCrypt Tools</h1>
+
+        <hr />
+
+        <h2>Validate chain</h2>
+
+        Input Chain:<br />
+        <textarea rows="10" cols="75" id="validate_input"></textarea><br />
+        <input type="button" name="validate" value="Validate input chain" onclick="ValidateChain()"/><br />
+        Output:<br />
+        <textarea rows="4" cols="75" id="validate_output"></textarea>
+
+        <hr />
+
+        <h2>Initialize new chain</h2>
+
+        <input type="button" name="newchain" value="New Chain" onclick="NewChain()"/><br />
+        Output:<br />
+        <textarea rows="10" cols="75" id="newchain_output"></textarea>
+
+        <hr />
+
+        <h2>Add block to chain</h2>
+
+        Input Chain:<br />
+        <textarea rows="10" cols="75" id="addblock_input"></textarea><br />
+        index: <input type="text" id="addblock_index"><br />
+        timestamp: <input type="text" id="addblock_timestamp"><br />
+        data: <input type="text" id="addblock_data"><br />
+        <input type="button" name="add" value="Add block" onclick="AddBlockToChain()"/><br />
+        Output:<br />
+        <textarea rows="10" cols="75" id="addblock_output"></textarea>
+
+        <hr />
+
+        <script src="CoronaCrypt.js"></script> 
+        <script src="tools.js"></script> 
+    </body>
+	
+</html>
