@@ -11,18 +11,13 @@ class CoronaCryptBlock {
         this.hash = hash;
     }
 
-// computing the hash
-// TUDO: use cryptography strong hash function !!!
+    // computing the hash
+    // TUDO: use cryptography strong hash function !!!
     Hash() {
         var block_sting = JSON.stringify({index: this.index, timestamp: this.timestamp, data: this.data, precedingHash:this.precedingHash});
         var hash = 0;
         for (var i = 0; i < block_sting.length; i++) {
-            var i_char = block_sting.charAt(i);
-            var i_byte = i_char.charCodeAt(0);
-            hash = hash + i_byte;
-            if (hash > 65535) {
-                hash = hash - 65535;
-            }
+            hash = hash + block_sting.charCodeAt(i);
         }
         return hash.toString();
     }
@@ -36,8 +31,9 @@ class CoronaCryptBlock {
 // CoronaCrypt chain
 class CoronaCryptBlockchain {
 
-    constructor() {
+    constructor(debug=false) {
         this.blockchain = [];
+        this.debug = debug;
     }
 
     // initialize a new chain with genesis block
@@ -68,22 +64,27 @@ class CoronaCryptBlockchain {
             
             // check the hash of the current block
             if (currentBlock.hash !== currentBlock.Hash()) {
-                console.log("current block hash do not matches with the calculated hash!");
-                console.log("hash in current block: "+currentBlock.hash);
-                console.log("calculated hash: "+currentBlock.Hash());
+                if (this.debug){
+                    console.log("current block hash do not matches with the calculated hash!");
+                    console.log("hash in current block: "+currentBlock.hash);
+                    console.log("calculated hash: "+currentBlock.Hash());
+                }
                 return false;
             }
 
             // check the hash of the preceding block
             if (currentBlock.precedingHash !== precedingBlock.Hash()) {
-                console.log("preceding block hash do not matches with the calculated hash!");
-                console.log("precedingHash in current block: "+currentBlock.precedingHash);
-                console.log("calculated precedingHash: "+precedingBlock.Hash());
+                if (this.debug){
+                    console.log("preceding block hash do not matches with the calculated hash!");
+                    console.log("precedingHash in current block: "+currentBlock.precedingHash);
+                    console.log("calculated precedingHash: "+precedingBlock.Hash());
+                }
                 return false;
             }
         }
-        
-        console.log("chain is valid!");
+        if (this.debug){
+            console.log("chain is valid!");
+        }
         return true;
     }
 
@@ -103,9 +104,11 @@ class CoronaCryptBlockchain {
                 blocks[i].data,
                 blocks[i].precedingHash,
                 blocks[i].hash,
-                );
-            console.log("load block:");
-            console.log(JSON.stringify(newblock, null, 2));
+            );
+            if (this.debug){
+                console.log("load block:");
+                console.log(JSON.stringify(newblock, null, 2));
+            }
             this.blockchain.push(newblock);
         }
     }

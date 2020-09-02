@@ -1,7 +1,7 @@
 function ValidateChain() {
     // deserialise input chain
     var inputChainString = document.getElementById("validate_input").value;
-    let chain = new CoronaCryptBlockchain();
+    let chain = new CoronaCryptBlockchain(debug=true); // TUDO: deactivate debug mode
     chain.deserialize(inputChainString);
 
     // validate
@@ -14,7 +14,7 @@ function ValidateChain() {
 
 function NewChain() {
     // init chain
-    let chain = new CoronaCryptBlockchain();
+    let chain = new CoronaCryptBlockchain(debug=true); // TUDO: deactivate debug mode
     chain.initChane();
 
     // serialise output chain
@@ -24,7 +24,7 @@ function NewChain() {
 function AddBlockToChain(){
     // deserialise input chain
     var inputChainString = document.getElementById("addblock_input").value;
-    let chain = new CoronaCryptBlockchain();
+    let chain = new CoronaCryptBlockchain(debug=true); // TUDO: deactivate debug mode
     chain.deserialize(inputChainString);
 
     // new block parameters
@@ -38,4 +38,8 @@ function AddBlockToChain(){
 
     // serialise output chain
     document.getElementById("addblock_output").value = chain.serialize();
+}
+
+function ClearTextArea(textareaID){
+    document.getElementById(textareaID).value = "";
 }
