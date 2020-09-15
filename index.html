@@ -18,7 +18,7 @@
         <textarea rows="10" cols="75" id="validate_input" oninput="ClearTextArea('validate_output')"></textarea><br />
         <input type="button" name="validate" value="Validate input chain" onclick="ValidateChain()"/><br />
         Output:<br />
-        <textarea rows="4" cols="75" id="validate_output"></textarea>
+        <textarea rows="1" cols="75" id="validate_output"></textarea>
 
         <hr />
 
@@ -36,7 +36,9 @@
         <textarea rows="10" cols="75" id="addblock_input"></textarea><br />
         index: <input type="text" id="addblock_index"><br />
         timestamp: <input type="text" id="addblock_timestamp"><br />
+        measurement: <input type="text" id="addblock_measurement"><br />
         data: <input type="text" id="addblock_data"><br />
+        comment: <input type="text" id="addblock_comment"><br />
         <input type="button" name="add" value="Add block" onclick="AddBlockToChain()"/><br />
         Output:<br />
         <textarea rows="10" cols="75" id="addblock_output"></textarea>
