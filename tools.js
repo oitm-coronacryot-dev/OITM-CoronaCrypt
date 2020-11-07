@@ -30,12 +30,11 @@ function AddBlockToChain(){
     // new block parameters
     var inputIndex = document.getElementById("addblock_index").value;
     var inputTimestamp = document.getElementById("addblock_timestamp").value;
-    var inputMeasurement = document.getElementById("addblock_measurement").value;
     var inputData = document.getElementById("addblock_data").value;
     var inputComment = document.getElementById("addblock_comment").value;
     
     // add new block
-    let newBlock = new CoronaCryptBlock(inputIndex, inputTimestamp, inputMeasurement, inputData, inputComment);
+    let newBlock = new CoronaCryptBlock(inputIndex, inputTimestamp, inputData, inputComment);
     chain.addNewBlock(newBlock);
 
     // serialise output chain

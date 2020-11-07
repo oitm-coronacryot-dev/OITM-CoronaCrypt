@@ -3,10 +3,9 @@
 // CoronaCrypt block
 class CoronaCryptBlock {
 
-    constructor(index, timestamp, measurement, data, comment=" ", precedingHash=" ", hash=" ") {
-        this.index = index;
-        this.timestamp = timestamp;
-        this.measurement = measurement;
+    constructor(index, timestamp, data, comment=" ", precedingHash=" ", hash=" ") {
+        this.index = parseInt(index, 10);
+        this.timestamp = parseInt(timestamp, 10);
         this.data = data;
         this.comment = comment;
         this.precedingHash = precedingHash;
@@ -19,7 +18,6 @@ class CoronaCryptBlock {
         var blockString = JSON.stringify({
             index: this.index, 
             timestamp: this.timestamp, 
-            measurement: this.measurement, 
             data: this.data, 
             comment: this.comment, 
             precedingHash:this.precedingHash
@@ -53,7 +51,7 @@ class CoronaCryptBlockchain {
     // initialize a new chain with genesis block
     initChane() {
         this.blockchain = [];
-        let GenesisBlock = new CoronaCryptBlock(0, "1577836800", "Initial Block", "0.0", "Initial Block in the Chain", "0")
+        let GenesisBlock = new CoronaCryptBlock(0, "1577836800", "Initial Block", "Initial Block in the Chain", "0")
         GenesisBlock.computeHash();
         this.blockchain.push(GenesisBlock);
     }
@@ -110,6 +108,29 @@ class CoronaCryptBlockchain {
                 }
                 return false;
             }
+
+            // check index
+            var expectedIndex = parseInt(precedingBlock.index, 10) + 1
+            if ( parseInt(currentBlock.index, 10) !=  expectedIndex ) {
+                if (this.debug){
+                    console.log("Invalid index!");
+                    console.log("index in current block: "+currentBlock.index);
+                    console.log("expected index: "+expectedIndex);
+                    console.log("\n\n\n");
+                }
+                return false;
+            }
+
+            // check timestamp
+            if ( parseInt(currentBlock.timestamp, 10) <  parseInt(precedingBlock.timestamp, 10) ) {
+                if (this.debug){
+                    console.log("Invalid timestamp! The current block's timestamp has to be bigger tha or equal to the preceding one!");
+                    console.log("timestamp in current block: "+currentBlock.timestamp);
+                    console.log("timestamp in preceding block: "+precedingBlock.timestamp);
+                    console.log("\n\n\n");
+                }
+                return false;
+            }
         }
 
         // tha chain is valid
@@ -133,7 +154,6 @@ class CoronaCryptBlockchain {
             let newblock = new  CoronaCryptBlock(
                 blocks[i].index,
                 blocks[i].timestamp,
-                blocks[i].measurement,
                 blocks[i].data,
                 blocks[i].comment,
                 blocks[i].precedingHash,
